@@ -49,3 +49,9 @@ seven unique dungeon themes filled with enemies, traps, and multi-phase bosses.
 - Event-driven step progression  
 - Server-validated conditions  
 - Timed hints & automated hiding
+
+
+<img width="796" height="586" alt="Screenshot 2025-12-07 at 8 06 27 PM" src="https://github.com/user-attachments/assets/9ab38870-b8ed-475f-a429-5c82c2c3bade" />
+
+<img width="791" height="579" alt="Screenshot 2025-12-07 at 8 07 39 PM" src="https://github.com/user-attachments/assets/ab77ea54-42b3-407c-8ec1-662f50918557" />
+
