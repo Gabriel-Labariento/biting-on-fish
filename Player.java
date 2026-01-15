@@ -45,6 +45,13 @@ public abstract class Player extends Entity implements Effectable{
     private long lastStepSoundTime = 0;
     protected boolean hasPlayedLevelUpSound = false;
 
+    //  TUTORIAL VARIABLES
+    protected int movementCount = 0;
+    private static final int SIGNIFICANT_MOVEMENT = 50;
+
+    protected int attackCount = 0;
+    private static final int ATTACK_THRESHOLD = 2;
+
     /**
      * Each Player instance starts at level 1, holds no item, and has 
      * an empty statusEffects ArrayList
@@ -67,7 +74,7 @@ public abstract class Player extends Entity implements Effectable{
             currentLvl++; 
             
             if (!hasPlayedLevelUpSound) {
-                SoundManager.getInstance().playSound("levelUp");
+                SoundManager.getInstance().playPooledSound("levelUp");
                 hasPlayedLevelUpSound = true;
             }
             
@@ -270,6 +277,7 @@ public abstract class Player extends Entity implements Effectable{
 
         if (changeX != 0 || changeY != 0){
             playStepSound();
+            movementCount++;
         }
 
         matchHitBoxBounds();
@@ -295,15 +303,15 @@ public abstract class Player extends Entity implements Effectable{
             case 2:
             case 4:
                 // WOODEN STEP
-                SoundManager.getInstance().playSound("woodWalk");
+                SoundManager.getInstance().playPooledSound("woodWalk");
                 break;
             case 6:
                 // WATER STEP
-                SoundManager.getInstance().playSound("waterWalk");
+                SoundManager.getInstance().playPooledSound("waterWalk");
                 break;
             default:
                 // NORMAL STEP
-                SoundManager.getInstance().playSound("normalWalk");
+                SoundManager.getInstance().playPooledSound("normalWalk");
                 break;
         }
         lastStepSoundTime = currentTime;
@@ -461,6 +469,7 @@ public abstract class Player extends Entity implements Effectable{
      * Cycles through the attack sprites to simulate attack animation
      */
     public void runAttackFrames(){
+        attackCount++;
         int frameCount = 0;
         while(frameCount < 4){
             long now = System.currentTimeMillis();
@@ -511,5 +520,13 @@ public abstract class Player extends Entity implements Effectable{
      */
     public ArrayList<StatusEffect> getStatusEffects() {
         return statusEffects;
+    }
+
+    public boolean hasMovedSignificantly(){
+        return movementCount > SIGNIFICANT_MOVEMENT;
+    }
+
+    public boolean hasReachedAttackThreshold() {
+        return attackCount > ATTACK_THRESHOLD;
     }
 }
